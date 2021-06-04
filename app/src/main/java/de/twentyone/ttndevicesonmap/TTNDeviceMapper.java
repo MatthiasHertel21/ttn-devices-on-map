@@ -66,12 +66,10 @@ public class TTNDeviceMapper extends FragmentActivity implements OnMapReadyCallb
 
         TextView msg = findViewById(R.id.msg);
         msg.setText("found "+ttnDevices.devices.size() +" devices");
+        mMap.clear();
 
         for (TTNDevice device : ttnDevices.devices) {
             if (device.locations.size()>0) {
-                mMap.addMarker(new MarkerOptions().position(device.lastPos()).title(device.id + " " + device.locations.lastElement().timeString));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(device.lastPos()));
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(device.lastPos(), 15));
                 Polyline line;
                 PolylineOptions path = new PolylineOptions();
                 line = mMap.addPolyline(path);
@@ -85,6 +83,12 @@ public class TTNDeviceMapper extends FragmentActivity implements OnMapReadyCallb
             else {
                 msg.setText("no data for "+device.id);
             }
+            mMap.addMarker(new MarkerOptions().position(device.lastPos()).title(device.id + " " + device.locations.lastElement().timeString));
+        }
+        if (ttnDevices.devices.size()>0){
+            LatLng goPos = ttnDevices.devices.lastElement().lastPos();
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(goPos));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(goPos, 15));
         }
     }
 
