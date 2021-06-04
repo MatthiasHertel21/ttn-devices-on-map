@@ -10,4 +10,4 @@ https://github.com/MatthiasHertel21/ttn-devices-on-map/blob/main/app/release/Scr
 
 # feel free to use it as you like 
 - It's just a litle shot for one ttn application / one device ... I did no testing for more complex setups
-- runs fin at android 6 / S6 ... no further testing 
+- runs fine at S6 / android 6  ... no further testing 
