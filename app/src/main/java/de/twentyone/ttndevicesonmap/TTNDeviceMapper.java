@@ -25,6 +25,7 @@ import de.twentyone.ttndevicesonmap.databinding.ActivityMapsBinding;
 
 import static de.twentyone.ttndevicesonmap.TTNSettingsActivity.TTN_ACCOUNT;
 import static de.twentyone.ttndevicesonmap.TTNSettingsActivity.TTN_APP_NAME;
+import static de.twentyone.ttndevicesonmap.TTNSettingsActivity.TTN_QUERY;
 
 public class TTNDeviceMapper extends FragmentActivity implements OnMapReadyCallback {
 
@@ -42,16 +43,8 @@ public class TTNDeviceMapper extends FragmentActivity implements OnMapReadyCallb
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        TextView msg = findViewById(R.id.msg);
-        msg.setText("Moin");
-
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-        String appId = sharedPreferences.getString(TTN_APP_NAME,"f21lora001app");
-        String ttnAccount = sharedPreferences.getString(TTN_APP_NAME,"ttn-account-v2.QVKUZ5HWPCK_AachlCuzU47vvY3SxvrXoWtuVLn-xFk");
-
-        ttnDevices = new TTNDevices(appId,ttnAccount,msg);
-        ttnDevices.readDeviceDataV2();
+        //drawCurrentDevicePositions();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -64,20 +57,34 @@ public class TTNDeviceMapper extends FragmentActivity implements OnMapReadyCallb
     }
 
     private void drawCurrentDevicePositions() {
-        for (TTNDevice device : ttnDevices.devices) {
-            mMap.addMarker(new MarkerOptions().position(device.lastPos()).title(device.id+" "+device.locations.lastElement().timeString));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(device.lastPos()));
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(device.lastPos(), 15));                   ;
 
-            Polyline line;
-            PolylineOptions path = new PolylineOptions();
-            line = mMap.addPolyline(path);
-            line.setTag(device.id);
-            line.setZIndex(100);
-            line.setClickable(false);
-            line.setColor(Color.GRAY);
-            line.setWidth(3);
-            line.setPoints(device.getLatLng());
+        String appId = sharedPreferences.getString(TTN_APP_NAME,"f21lora001app");
+        String ttnAccount = sharedPreferences.getString(TTN_ACCOUNT,"ttn-account-v2.QVKUZ5HWPCK_AachlCuzU47vvY3SxvrXoWtuVLn-xFk");
+        String ttnQuery = sharedPreferences.getString(TTN_QUERY,"3d");
+        ttnDevices = new TTNDevices(appId,ttnAccount);
+        ttnDevices.readDeviceDataV2(ttnQuery);
+
+        TextView msg = findViewById(R.id.msg);
+        msg.setText("found "+ttnDevices.devices.size() +" devices");
+
+        for (TTNDevice device : ttnDevices.devices) {
+            if (device.locations.size()>0) {
+                mMap.addMarker(new MarkerOptions().position(device.lastPos()).title(device.id + " " + device.locations.lastElement().timeString));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(device.lastPos()));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(device.lastPos(), 15));
+                Polyline line;
+                PolylineOptions path = new PolylineOptions();
+                line = mMap.addPolyline(path);
+                line.setTag(device.id);
+                line.setZIndex(100);
+                line.setClickable(false);
+                line.setColor(Color.GRAY);
+                line.setWidth(3);
+                line.setPoints(device.getLatLng());
+            }
+            else {
+                msg.setText("no data for "+device.id);
+            }
         }
     }
 
@@ -93,11 +100,14 @@ public class TTNDeviceMapper extends FragmentActivity implements OnMapReadyCallb
         html.append(ttnDevices.getInfo());
         details.setText(Html.fromHtml(html.toString()));
         details.setVisibility(TextView.VISIBLE);
-
     }
 
-    public void ckickDetailsClose(View view) {
+    public void clickDetailsClose(View view) {
         TextView details = findViewById(R.id.details);
         details.setVisibility(TextView.INVISIBLE);
+    }
+
+    public void clickReload(View view) {
+        drawCurrentDevicePositions();
     }
 }

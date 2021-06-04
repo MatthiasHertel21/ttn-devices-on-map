@@ -7,36 +7,33 @@
 
 
     <TextView
-        android:id="@+id/headLine"
-        android:layout_width="wrap_content"
-        android:layout_height="36dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="24dp"
-        android:text="TTN Mapper Settings"
-        android:textSize="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/labelApp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:text="TTN App Id"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headLine" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/labelApp2"
+        android:id="@+id/labelAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="TTN Account"
         app:layout_constraintStart_toStartOf="@+id/labelApp"
         app:layout_constraintTop_toBottomOf="@+id/ttnAppName" />
+
+    <TextView
+        android:id="@+id/labelQuery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="TTN Range"
+        app:layout_constraintStart_toStartOf="@+id/labelApp"
+        app:layout_constraintTop_toBottomOf="@+id/ttnAccount" />
 
     <EditText
         android:id="@+id/ttnAppName"
@@ -50,6 +47,7 @@
         android:inputType="textPersonName"
         android:text="f21lora001app"
         android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/labelApp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/labelApp"
@@ -65,9 +63,26 @@
         android:inputType="textPersonName"
         android:text="ttn-account-v2.QVKUZ5HWPCK_AachlCuzU47vvY3SxvrXoWtuVLn-xFk"
         android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/labelAccount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/ttnAppName"
-        app:layout_constraintTop_toTopOf="@+id/labelApp2" />
+        app:layout_constraintTop_toTopOf="@+id/labelAccount" />
+
+    <EditText
+        android:id="@+id/ttnQuery"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="3d"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/labelQuery"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/ttnAppName"
+        app:layout_constraintTop_toTopOf="@+id/labelQuery" />
 
     <Button
         android:id="@+id/save"
