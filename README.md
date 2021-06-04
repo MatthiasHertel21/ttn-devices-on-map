@@ -9,5 +9,5 @@ https://github.com/MatthiasHertel21/ttn-devices-on-map/blob/main/app/release/Scr
 https://github.com/MatthiasHertel21/ttn-devices-on-map/blob/main/app/release/Screenshot_2021-06-04_094124.jpg?raw=true
 
 # feel free to use it as you like 
-- It's just a litle shot for one ttn application / one device ... I did no testing for more complex setups
+- It's just a litle shot for one ttn application ... I tested it for two devices, worked ... 
 - runs fine at S6 / android 6  ... no further testing 
