@@ -1,5 +1,6 @@
 # just a small android app to show ttn devices on a map:
 - get the devices and their locations for a given ttn app  
+https://github.com/MatthiasHertel21/ttn-devices-on-map/blob/main/app/release/Screenshot_2021-06-04_104917.jpg?raw=true
 - show last known location of every device as a marker on the map
 - show the last locations of every device as a track
 - get a list of addresses for last known location of your devices (using osm address data)
