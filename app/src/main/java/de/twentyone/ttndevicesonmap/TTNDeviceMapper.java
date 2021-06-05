@@ -79,11 +79,11 @@ public class TTNDeviceMapper extends FragmentActivity implements OnMapReadyCallb
                 line.setColor(Color.GRAY);
                 line.setWidth(3);
                 line.setPoints(device.getLatLng());
+                mMap.addMarker(new MarkerOptions().position(device.lastPos()).title(device.id + " " + device.locations.lastElement().timeString));
             }
             else {
                 msg.setText("no data for "+device.id);
             }
-            mMap.addMarker(new MarkerOptions().position(device.lastPos()).title(device.id + " " + device.locations.lastElement().timeString));
         }
         if (ttnDevices.devices.size()>0){
             LatLng goPos = ttnDevices.devices.lastElement().lastPos();
